@@ -1,15 +1,20 @@
+/*
+  disableSwap: keeps a minimum distance
+*/
+
+import { Slider, Typography } from '@mui/material';
 import React, {useEffect} from 'react';
 
 export default function RangeSlider(props) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState([0, 0]);
 
   /* Help with setting default values */
   useEffect(() => {
-    setValue(props.max);
-  }, [props.max]);
+    setValue([props.min, props.max]);
+  }, [props]);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
   const valueSelected = () => {
@@ -17,22 +22,21 @@ export default function RangeSlider(props) {
   };
 
   return (
-    <div className="">
-
-      {/* 'value' results in a console error, but it still works */}
-      <input 
-        type="range" 
-        min={props.min} 
-        max={props.max} 
-        step={props.step}
-        value={value}
-        className="slider" 
-        id={props.id}
-        onMouseUp={valueSelected}
-        onChange={handleChange}
-      />
-      <b>{props.prefix || ""} {value} {props.suffix || ""}</b>
-    </div>
+      <>
+        <Typography>{props.title} between {props.prefix} {value[0]} {props.suffix} and {props.prefix} {value[1]} {props.suffix}</Typography>
+        {props.max &&
+          <Slider
+            getAriaLabel={() => 'range'}
+            min={props.min}
+            max={props.max}
+            step={props.step}
+            defaultValue={[props.min, props.max]}
+            onChange={handleChange}
+            onMouseUp={valueSelected}
+            disableSwap
+          />
+        }
+      </>
   );
 }
 

@@ -19,10 +19,21 @@ export default function Searchform(props){
     const [mileageRange, setMileageRange] = React.useState([]);
 
     const updateForm = (newValue, searchName) => {
-        setSearchData(prevState => ({
-            ...prevState,
-            [searchName]: newValue
-        }))
+        /* From/To logic for the sliders */
+        if(newValue.length > 1){
+            const minLabel = `${searchName}_from`;
+            const maxLabel = `${searchName}_to`;
+            setSearchData(prevState => ({
+                ...prevState,
+                [minLabel]: newValue[0],
+                [maxLabel]: newValue[1]
+            }))
+        } else {
+            setSearchData(prevState => ({
+                ...prevState,
+                [searchName]: newValue
+            }))
+        }
     };
 
     const refreshForm = () => {
@@ -71,6 +82,12 @@ export default function Searchform(props){
                         parentCallback={updateForm}
                     />
                     <FormSelect 
+                        data={availableData.model} 
+                        label="Model" 
+                        id="model"
+                        parentCallback={updateForm}
+                    />
+                    <FormSelect 
                         data={availableData.fuel} 
                         label="Fueltype" 
                         id="gas"
@@ -81,8 +98,9 @@ export default function Searchform(props){
                 <FormSlider
                     min={priceRange[0]}
                     max={priceRange[1]}
-                    step="1000"
-                    id="price_to"
+                    step={1000}
+                    id="price"
+                    title="Price"
                     prefix="€"
                     parentCallback={updateForm}
                 />
@@ -90,8 +108,9 @@ export default function Searchform(props){
                 <FormSlider
                     min={mileageRange[0]}
                     max={mileageRange[1]}
-                    step="1000"
-                    id="km_to"
+                    step={1000}
+                    id="km"
+                    title="Mileage"
                     suffix="km"
                     parentCallback={updateForm}
                 />
