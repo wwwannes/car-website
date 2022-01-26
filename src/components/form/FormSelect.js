@@ -10,7 +10,7 @@ export default function FormSelect(props) {
   };
 
   return (
-    <FormControl fullWidth={true} margin="normal" variant="standard">
+    <FormControl fullWidth={true} margin="normal" variant="standard" disabled={props.disabled}>
         <InputLabel id={props.id}>{props.label}</InputLabel>
         <Select
             labelId={props.id}

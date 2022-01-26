@@ -1,17 +1,10 @@
-import React, {useEffect} from 'react';
-import { Link } from "react-router-dom";
+import React, {useCallback, useEffect} from 'react';
 import axios from 'axios';
 
-import { CardActionArea } from '@mui/material';
-import CardContent from '@mui/material/CardContent';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import VehicleDetails from '../../views/VehicleDetailPage';
 import VehicleGridItem from './VehicleGridItem';
 
 export default function VehicleGrid(props){
@@ -24,7 +17,7 @@ export default function VehicleGrid(props){
     const [vehicleData, setVehicleData] = React.useState([]); 
     const [loaded, setLoaded] = React.useState(false);
 
-    const refreshResults = () => {
+    const refreshResults = useCallback(() => {
         setLoaded(false);
 
         axios.get(
@@ -33,70 +26,52 @@ export default function VehicleGrid(props){
                 params: searchData
             }
         )
-          .then(res => {
-              setVehicleData(res.data.vehicles);
-              setLoaded(true);
+        .then(res => {
+            setVehicleData(res.data.vehicles);
+            setLoaded(true);
         })
-    }
+    }, [searchData]); /* Function will only be called if dependency 'searchData' changes */
 
-    useEffect(() => {
+    const updateSearchData = useCallback(() => {
         if(loaded){
             setSearchData({...props.queryData, gw: "search_json"});
         }
-    },[props.queryData]);
+    }, [props.queryData]);
+
+    useEffect(() => {
+        updateSearchData();
+    },[updateSearchData]);
 
     useEffect(() => {
         refreshResults();
-    },[searchData]);
+    },[refreshResults]);
 
     return(
         <>
             {vehicleData !== undefined && loaded &&
-                <>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={2}>
-                            {vehicleData.map((value, key) => {
-                                const vehiclePrice = new Intl.NumberFormat('be-NL', {
-                                    style: 'currency',
-                                    currency: value.prices.currency
-                                }).format(value.prices.price);
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                        {vehicleData.map((value, key) => {
+                            const vehiclePrice = new Intl.NumberFormat('be-NL', {
+                                style: 'currency',
+                                currency: value.prices.currency
+                            }).format(value.prices.price);
 
-                                return(
-                                    <VehicleGridItem
-                                        key={key}
-                                        id={value.cipher}
-                                        numberOfColumns={4}
-                                        manufacturer={value.mainData.manufacturer.name}
-                                        model={value.mainData.model.name}
-                                        picServer={value.picServer}
-                                        image={value.images[0].name}
-                                        price={vehiclePrice}
-                                    />
-                                )
-
-                                {/*
-                                    return( 
-                                    <>
-                                        <Grid item xs={4} key={key}>
-                                            <Card variant="outlined">
-                                                <CardActionArea>
-                                                    <Link to={`/vehicle/${value.mainData.manufacturer.name}/${value.mainData.model.name}/${value.cipher}`}>
-                                                        <CardMedia component="img" image={value.picServer+"/"+value.images[0].name}/>
-                                                        <CardContent>
-                                                            <Typography gutterBottom variant="h6" component="div">{value.mainData.manufacturer.name} {value.mainData.model.name}</Typography>
-                                                            <Typography variant="body2" color="text.secondary">{vehiclePrice}</Typography>
-                                                        </CardContent>
-                                                    </Link>
-                                                </CardActionArea>
-                                            </Card>
-                                        </Grid>
-                                    </>
-                                );
-                                    */}
-                            })}
-                        </Grid>
-                    </Box>
-                </>
+                            return(
+                                <VehicleGridItem
+                                    key={key}
+                                    id={value.cipher}
+                                    numberOfColumns={4}
+                                    manufacturer={value.mainData.manufacturer.name}
+                                    model={value.mainData.model.name}
+                                    picServer={value.picServer}
+                                    image={value.images[0].name}
+                                    price={vehiclePrice}
+                                />
+                            )
+                        })}
+                    </Grid>
+                </Box>
             }
             {!loaded &&
                 <Box sx={{ width: '100%' }}>

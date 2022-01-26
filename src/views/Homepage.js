@@ -34,6 +34,7 @@ export default function Homepage(){
           .then(res => {
             setAvailableData(res.data);
             setLoaded(true);
+            console.log(loaded)
         })
     }
 

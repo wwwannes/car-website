@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import axios from 'axios';
 //import { Slider, FormGroup, FormControlLabel, Checkbox, Box } from '@mui/material';
 
@@ -36,7 +36,7 @@ export default function Searchform(props){
         }
     };
 
-    const refreshForm = () => {
+    const refreshForm = useCallback(() => {
         setLoaded(false);
 
         axios.get(
@@ -57,12 +57,12 @@ export default function Searchform(props){
             props.parentCallback(searchData);
             setLoaded(true);
         })
-    }
+    }, [searchData]);
 
     /* componentDidMount & if searchData changes */
     useEffect(() => {
         refreshForm();
-    }, [searchData]);
+    }, [refreshForm]);
 
     return(
         <Container maxWidth="ms">
@@ -74,24 +74,28 @@ export default function Searchform(props){
                         label="Color" 
                         id="color"
                         parentCallback={updateForm}
+                        disabled={!loaded}
                     />
                     <FormSelect 
                         data={availableData.manufacturer} 
                         label="Manufacturer" 
                         id="manufacturer"
                         parentCallback={updateForm}
+                        disabled={!loaded}
                     />
                     <FormSelect 
                         data={availableData.model} 
                         label="Model" 
                         id="model"
                         parentCallback={updateForm}
+                        disabled={!loaded}
                     />
                     <FormSelect 
                         data={availableData.fuel} 
                         label="Fueltype" 
                         id="gas"
                         parentCallback={updateForm}
+                        disabled={!loaded}
                     />
                 </div>
 

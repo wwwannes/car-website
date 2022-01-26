@@ -43,7 +43,7 @@ TabPanel.propTypes = {
 export default function VehicleDetails(){
     const params = useParams();
 
-    const [searchData, setSearchData] = React.useState({
+    const [searchData] = React.useState({
         gw: "search_json",
         mkey: "1-40248-2565679",
         language: 2,
@@ -69,7 +69,7 @@ export default function VehicleDetails(){
             setLoaded(true);
             console.log(res.data)
         })
-    }, [])
+    }, [searchData]);
 
     const a11yProps = ((index) => {
         return {

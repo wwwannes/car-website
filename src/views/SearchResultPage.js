@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect} from 'react';
-import axios from 'axios';
 
 import Searchform from '../components/search/Searchform';
 import VehicleGrid from '../components/vehicles/VehicleResults';
