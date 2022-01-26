@@ -7,12 +7,12 @@ import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
 import LinearProgress from '@mui/material/LinearProgress';
+
 import VehicleDetails from '../../views/VehicleDetailPage';
+import VehicleGridItem from './VehicleGridItem';
 
 export default function VehicleGrid(props){
     const [searchData, setSearchData] = React.useState({
@@ -36,7 +36,6 @@ export default function VehicleGrid(props){
           .then(res => {
               setVehicleData(res.data.vehicles);
               setLoaded(true);
-              console.log(res.data.vehicles);
         })
     }
 
@@ -52,7 +51,7 @@ export default function VehicleGrid(props){
 
     return(
         <>
-            {loaded &&
+            {vehicleData !== undefined && loaded &&
                 <>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
@@ -62,7 +61,21 @@ export default function VehicleGrid(props){
                                     currency: value.prices.currency
                                 }).format(value.prices.price);
 
-                                return( 
+                                return(
+                                    <VehicleGridItem
+                                        key={key}
+                                        id={value.cipher}
+                                        numberOfColumns={4}
+                                        manufacturer={value.mainData.manufacturer.name}
+                                        model={value.mainData.model.name}
+                                        picServer={value.picServer}
+                                        image={value.images[0].name}
+                                        price={vehiclePrice}
+                                    />
+                                )
+
+                                {/*
+                                    return( 
                                     <>
                                         <Grid item xs={4} key={key}>
                                             <Card variant="outlined">
@@ -79,6 +92,7 @@ export default function VehicleGrid(props){
                                         </Grid>
                                     </>
                                 );
+                                    */}
                             })}
                         </Grid>
                     </Box>
