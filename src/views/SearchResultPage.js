@@ -24,7 +24,7 @@ export default function SearchResultPage(props){
     };
 
     useEffect(() => {
-        console.log(queryData)
+        //console.log(queryData)
     }, [queryData])
 
     const updateResults = (data) => {

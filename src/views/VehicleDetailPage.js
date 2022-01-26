@@ -41,7 +41,6 @@ TabPanel.propTypes = {
 };
 
 export default function VehicleDetails(){
-
     const params = useParams();
 
     const [searchData, setSearchData] = React.useState({

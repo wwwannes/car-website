@@ -1,4 +1,4 @@
-import { Box, Card, CardMedia, Container, Grid, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Container, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
@@ -45,30 +45,33 @@ export default function Homepage(){
     return(
         <>
             <Container maxWidth={false} disableGutters={true} sx={{position: 'relative'}}>
-                <Card sx={[{ mb: 15 }]}>
-                    {/*<CardMedia component="video" src="../assets/videos/homepage-city.mp4" autoPlay/>*/}
-                    <CardMedia 
+                <Card sx={[{ mb: 15 }, {background: 'black'}]}>
+                    <CardMedia
+                        component="video" 
+                        src="../assets/videos/production ID_4488715.mp4" 
+                        autoPlay 
+                        muted
+                        loop
+                        sx={[{opacity: 0.4}]}
+                    />
+                    {/*<CardMedia 
                         component="img" 
                         src="https://via.placeholder.com/1920x1080"
                         sx={{height: '100vh'}}
-                    />
-                    {/*<video loop autoPlay>
-                        <source
-                        src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"
-                        type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                    </video>*/}
+                    />*/}
                 </Card>
                 <Grid container spacing={3} sx={[
-                    {width: 500},
+                    {width: 650},
                     {background: 'white'}, 
                     {position: 'absolute'}, 
                     {bottom: 50}, 
                     {left: '50%'},
                     {transform: 'translateX(-50%)'}
                 ]}>
-                    <Grid item xs={6} sx={{p: 2}}>
+                    <Grid item xs={12} sx={{px: 2}}>
+                        <Typography variant='h6'>Search stock</Typography>
+                    </Grid>
+                    <Grid item xs={5} sx={{p: 2}}>
                         <FormSelect 
                             data={availableData.manufacturer} 
                             label="Manufacturer" 
@@ -76,13 +79,16 @@ export default function Homepage(){
                             parentCallback={updateForm}
                         />
                     </Grid>
-                    <Grid item xs={6} sx={{p: 2}}>
+                    <Grid item xs={5} sx={{p: 2}}>
                         <FormSelect 
                             data={availableData.model} 
                             label="Model" 
                             id="model"
                             parentCallback={updateForm}
                         />
+                    </Grid>
+                    <Grid item xs={2} sx={{p: 2}}>
+                        <Button variant="contained">Show</Button>
                     </Grid>
                 </Grid>
             </Container>

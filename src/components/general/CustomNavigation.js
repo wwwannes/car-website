@@ -6,14 +6,16 @@ export default function CustomNavigation(){
 
     return(
         <>
-            <Container maxWidth="xl" disableGutters={true} sx={[
+            <Container maxWidth="xl" disableGutters={false} sx={[
                 {my: 1}, 
                 {position: "fixed"}, 
                 {zIndex: 999999}, 
                 {ml: "auto"}, 
                 {mr: "auto"},
                 {left: '50%'},
-                {transform: 'translateX(-50%)'}
+                {top: 10},
+                {transform: 'translateX(-50%)'},
+                {background: 'white'}
             ]}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>

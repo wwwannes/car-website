@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Select, MenuItem, InputLabel, FormControl, TextField } from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 
 export default function FormSelect(props) {
     return (
-        <FormControl fullWidth="true" margin="normal" variant="standard">
+        <FormControl fullWidth={true} margin="normal" variant="standard">
             <TextField 
                 variant="standard"
                 label={props.title} 
