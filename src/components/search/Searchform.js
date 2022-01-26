@@ -1,11 +1,10 @@
 import React, {useCallback, useEffect} from 'react';
 import axios from 'axios';
-//import { Slider, FormGroup, FormControlLabel, Checkbox, Box } from '@mui/material';
+import { Container } from '@mui/material';
 
 import FormSlider from '../form/FormSlider';
 import FormSelect from '../form/FormSelect';
 import FormCheckbox from '../form/FormCheckbox';
-import { Container } from '@mui/material';
 
 export default function Searchform(props){
     const [loaded, setLoaded] = React.useState(false);

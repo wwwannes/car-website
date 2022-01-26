@@ -1,8 +1,9 @@
 import { Box, Button, Card, CardMedia, Container, Grid, Typography } from '@mui/material';
-import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
+
 import FormSelect from '../components/form/FormSelect';
+import { getVehicleData } from '../composables/ApiCalls';
 
 export default function Homepage(){
     const [loaded, setLoaded] = React.useState(false);
@@ -25,17 +26,9 @@ export default function Homepage(){
     const refreshForm = () => {
         setLoaded(false);
 
-        axios.get(
-            'https://content.modix.net/soap/kfz/',
-            {
-                params: searchData
-            }
-        )
-          .then(res => {
-            setAvailableData(res.data);
-            setLoaded(true);
-            console.log(loaded)
-        })
+        getVehicleData(searchData).then( res =>
+            setAvailableData(res.data)
+        );
     }
 
     /* componentDidMount & if searchData changes */
@@ -55,43 +48,41 @@ export default function Homepage(){
                         loop
                         sx={[{opacity: 0.4}]}
                     />
-                    {/*<CardMedia 
-                        component="img" 
-                        src="https://via.placeholder.com/1920x1080"
-                        sx={{height: '100vh'}}
-                    />*/}
                 </Card>
-                <Grid container spacing={3} sx={[
-                    {width: 650},
-                    {background: 'white'}, 
-                    {position: 'absolute'}, 
-                    {bottom: 50}, 
-                    {left: '50%'},
-                    {transform: 'translateX(-50%)'}
-                ]}>
-                    <Grid item xs={12} sx={{px: 2}}>
-                        <Typography variant='h6'>Search stock</Typography>
+
+                {availableData &&
+                    <Grid container spacing={3} sx={[
+                        {width: 650},
+                        {background: 'white'}, 
+                        {position: 'absolute'}, 
+                        {bottom: 50}, 
+                        {left: '50%'},
+                        {transform: 'translateX(-50%)'}
+                    ]}>
+                        <Grid item xs={12} sx={{px: 2}}>
+                            <Typography variant='h6'>Search stock</Typography>
+                        </Grid>
+                        <Grid item xs={5} sx={{p: 2}}>
+                            <FormSelect 
+                                data={availableData.manufacturer} 
+                                label="Manufacturer" 
+                                id="manufacturer"
+                                parentCallback={updateForm}
+                            />
+                        </Grid>
+                        <Grid item xs={5} sx={{p: 2}}>
+                            <FormSelect 
+                                data={availableData.model} 
+                                label="Model" 
+                                id="model"
+                                parentCallback={updateForm}
+                            />
+                        </Grid>
+                        <Grid item xs={2} sx={{p: 2}}>
+                            <Button variant="contained">Show</Button>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={5} sx={{p: 2}}>
-                        <FormSelect 
-                            data={availableData.manufacturer} 
-                            label="Manufacturer" 
-                            id="manufacturer"
-                            parentCallback={updateForm}
-                        />
-                    </Grid>
-                    <Grid item xs={5} sx={{p: 2}}>
-                        <FormSelect 
-                            data={availableData.model} 
-                            label="Model" 
-                            id="model"
-                            parentCallback={updateForm}
-                        />
-                    </Grid>
-                    <Grid item xs={2} sx={{p: 2}}>
-                        <Button variant="contained">Show</Button>
-                    </Grid>
-                </Grid>
+            }
             </Container>
 
             {/* FAVORITE CARS */}

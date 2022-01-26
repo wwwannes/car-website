@@ -14,6 +14,7 @@ import LocalGasStationRoundedIcon from '@mui/icons-material/LocalGasStationRound
 
 import CustomizedAccordions from '../components/general/CustomizedAccordions';
 import FormInput from '../components/form/FormInput';
+import { getVehicleData } from '../composables/ApiCalls';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -58,17 +59,11 @@ export default function VehicleDetails(){
     };
     
     useEffect(() => {
-        axios.get(
-            'https://content.modix.net/soap/kfz/',
-            {
-                params: searchData
-            }
-        )
-          .then(res => {
+        getVehicleData({chiffre: params.id}, "search_json").then( res => {
             setVehicleData(res.data.vehicles[0]);
             setLoaded(true);
-            console.log(res.data)
-        })
+        });
+
     }, [searchData]);
 
     const a11yProps = ((index) => {
