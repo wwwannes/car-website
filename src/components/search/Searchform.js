@@ -5,15 +5,12 @@ import { Container } from '@mui/material';
 import FormSlider from '../form/FormSlider';
 import FormSelect from '../form/FormSelect';
 import FormCheckbox from '../form/FormCheckbox';
+import { getVehicleData } from '../../composables/ApiCalls';
 
 export default function Searchform(props){
     const [loaded, setLoaded] = React.useState(false);
     const [availableData, setAvailableData] = React.useState({});
-    const [searchData, setSearchData] = React.useState({
-        gw: "search_form_json",
-        mkey: "1-40248-2565679",
-        language: 2
-    });
+    const [searchData, setSearchData] = React.useState({});
     const [priceRange, setPriceRange] = React.useState([]);
     const [mileageRange, setMileageRange] = React.useState([]);
 
@@ -38,25 +35,36 @@ export default function Searchform(props){
     const refreshForm = useCallback(() => {
         setLoaded(false);
 
-        axios.get(
-            'https://content.modix.net/soap/kfz/',
-            {
-                params: searchData
-            }
-        )
-          .then(res => {
+        getVehicleData(searchData).then( res => {
             setAvailableData(res.data);
 
-            /* When initialising searchform */ 
-            if(availableData.found === undefined){
+            /*if(availableData.found === undefined){
                 setPriceRange([Math.floor(res.data.price[0].value / 1000) * 1000, Math.ceil(res.data.price[1].value / 1000) * 1000]);
                 setMileageRange([Math.floor(res.data.mileage[0].value / 1000) * 1000, Math.ceil(res.data.mileage[1].value / 1000) * 1000]);
             }
 
             props.parentCallback(searchData);
-            setLoaded(true);
-        })
+            setLoaded(true);*/
+        });
     }, [searchData]);
+
+    useEffect(() => {
+        if(availableData.found !== undefined){
+            setPriceRange([
+                Math.floor(availableData.price[0].value / 1000) * 1000, 
+                availableData.price[1] ? Math.ceil(availableData.price[1].value / 1000) * 1000 : null
+            ]);
+            setMileageRange([
+                Math.floor(availableData.mileage[0].value / 1000) * 1000, 
+                availableData.mileage[1] ? Math.ceil(availableData.mileage[1].value / 1000) * 1000 : null
+            ]);
+
+            console.log(searchData);
+            
+            props.parentCallback(searchData);
+            setLoaded(true);
+        }
+    }, [availableData]);
 
     /* componentDidMount & if searchData changes */
     useEffect(() => {

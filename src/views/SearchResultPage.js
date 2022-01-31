@@ -27,7 +27,8 @@ export default function SearchResultPage(props){
     }, [queryData])
 
     const updateResults = (data) => {
-        setQueryData(data);
+        setQueryData(data)
+        console.log(queryData);
     };
 
     return(
@@ -36,17 +37,17 @@ export default function SearchResultPage(props){
             <Fragment key="left">
                 <Button onClick={toggleDrawer("left", true)}>Modify search</Button>
                 <Drawer
-                sx={{
-                    width: 300,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                    width: 300,
-                    boxSizing: 'border-box',
-                    },
-                }}
-                anchor="left"
-                open={state["left"]}
-                onClose={toggleDrawer("left", false)}
+                    sx={{
+                        width: 300,
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                        width: 300,
+                        boxSizing: 'border-box',
+                        },
+                    }}
+                    anchor="left"
+                    open={state["left"]}
+                    onClose={toggleDrawer("left", false)}
                 >
                 <Searchform 
                     parentCallback={updateResults}

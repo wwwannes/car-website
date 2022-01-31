@@ -7,29 +7,32 @@ import { getVehicleData } from '../composables/ApiCalls';
 
 export default function Homepage(){
     const [loaded, setLoaded] = React.useState(false);
-    const [availableData, setAvailableData] = React.useState({});
-    const [searchData, setSearchData] = React.useState({
-        gw: "search_form_json",
-        mkey: "1-40248-2565679",
-        language: 2
+    const [availableData, setAvailableData] = React.useState({
+        sparse_mode: 1
     });
+    const [favoritesData, setFavoritesData] = React.useState({});
+    const [searchData, setSearchData] = React.useState({});
 
     const updateForm = (newValue, searchName) => {
-        if(searchName === "model"){
-            setSearchData(prevState => ({
-                ...prevState,
-                [searchName]: newValue
-            }))
-        }
+        setSearchData(prevState => ({
+            ...prevState,
+            [searchName]: newValue
+        }));
     };
 
     const refreshForm = () => {
         setLoaded(false);
 
-        getVehicleData(searchData).then( res =>
-            setAvailableData(res.data)
-        );
+        getVehicleData(searchData).then( (res) => {
+            setAvailableData(res.data);
+        });
     }
+
+    useEffect(() => {
+        getVehicleData({max: 3, sparse_mode: 1}).then( (res) => {
+            setFavoritesData(res.data);
+        });
+    }, []);
 
     /* componentDidMount & if searchData changes */
     useEffect(() => {
@@ -52,7 +55,7 @@ export default function Homepage(){
 
                 {availableData &&
                     <Grid container spacing={3} sx={[
-                        {width: 650},
+                        {width: 750},
                         {background: 'white'}, 
                         {position: 'absolute'}, 
                         {bottom: 50}, 
@@ -79,7 +82,7 @@ export default function Homepage(){
                             />
                         </Grid>
                         <Grid item xs={2} sx={{p: 2}}>
-                            <Button variant="contained">Show</Button>
+                            <Button variant="contained">Show {availableData.found} vehicles</Button>
                         </Grid>
                     </Grid>
             }

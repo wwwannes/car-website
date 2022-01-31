@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { useParams } from "react-router-dom";
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import { CardMedia, Container, Grid, LinearProgress, Tab, Tabs, Typography } from '@mui/material';
@@ -44,12 +43,7 @@ TabPanel.propTypes = {
 export default function VehicleDetails(){
     const params = useParams();
 
-    const [searchData] = React.useState({
-        gw: "search_json",
-        mkey: "1-40248-2565679",
-        language: 2,
-        chiffre: params.id
-    });
+    const [searchData] = React.useState({});
     const [vehicleData, setVehicleData] = React.useState([]); 
     const [loaded, setLoaded] = React.useState(false);
     const [value, setValue] = React.useState(0);

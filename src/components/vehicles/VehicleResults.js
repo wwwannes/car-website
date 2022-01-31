@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import VehicleGridItem from './VehicleGridItem';
+import { getVehicleData } from '../../composables/ApiCalls';
 
 export default function VehicleGrid(props){
     const [searchData, setSearchData] = React.useState({
@@ -20,7 +21,12 @@ export default function VehicleGrid(props){
     const refreshResults = useCallback(() => {
         setLoaded(false);
 
-        axios.get(
+        getVehicleData(searchData).then( res => {
+            setVehicleData(res.data.vehicles);
+            setLoaded(true);
+        });
+
+        /*axios.get(
             'https://content.modix.net/soap/kfz/',
             {
                 params: searchData
@@ -29,12 +35,12 @@ export default function VehicleGrid(props){
         .then(res => {
             setVehicleData(res.data.vehicles);
             setLoaded(true);
-        })
+        })*/
     }, [searchData]); /* Function will only be called if dependency 'searchData' changes */
 
     const updateSearchData = useCallback(() => {
         if(loaded){
-            setSearchData({...props.queryData, gw: "search_json"});
+            setSearchData({...props.queryData});
         }
     }, [props.queryData]);
 
