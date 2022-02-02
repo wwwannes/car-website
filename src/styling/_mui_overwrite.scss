@@ -1,0 +1,11 @@
+/* Button overwrite */
+[class*='-root-MuiButton-root']{
+    background-color: $primaryColor !important;
+}
+
+.MuiTypography-paragraph{
+    color: $secondaryTextColor;
+    font-style: italic;
+    text-justify: distribute;
+    text-decoration: wavy;
+}

@@ -1,0 +1,34 @@
+/* Colors */
+$primaryColor: #d9c5b2;
+$secondaryColor: #4c5c68;
+$primaryTextColor: #34312d;
+$secondaryTextColor: #7e7f83;
+$backgroundColor: #f3f3f4;
+
+/* Navigation */
+$naviHeightDesktop: 70px;
+$naviHeightMobile: 35px;
+
+/* Fonts */
+$fontFamily: -apple-system,BlinkMacSystemFont,Segoe UI;
+$fontFamilyItalic: 'Montserrat-Italic';
+$titleFamily: 'Cormorant Infant';
+$optionalFont: Helvetica, 'sans-serif';
+
+@font-face {
+    font-family: $titleFamily;
+    src: local($titleFamily),
+        url("../fonts/Cormorant_Infant/CormorantInfant-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $fontFamily;
+    src: local($fontFamily),
+        url("../fonts/Montserrat/Montserrat.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: $fontFamilyItalic;
+    src: local($fontFamilyItalic),
+        url("../fonts/Montserrat/Montserrat-Italic.ttf") format("truetype");
+}

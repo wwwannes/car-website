@@ -1,0 +1,31 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: $backgroundColor;
+    color: $primaryTextColor;
+    font-family: $fontFamily, $optionalFont !important;
+}
+
+h1, h2, h3, h4{
+    font-family: $titleFamily !important;
+    text-transform: none !important;
+
+    &::before{
+        content: '';
+        display: inline-block;
+        height: 3px;
+        background: $primaryColor;
+        width: 40px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+}
+
+a{
+    text-decoration: none;
+    color: $primaryColor;
+
+    &:hover{
+        color: $secondaryColor;
+    }
+}

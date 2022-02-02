@@ -1,0 +1,34 @@
+.nav-container{
+    background: white;
+
+    .nav-dealer-name{
+        line-height: $naviHeightDesktop;
+        font-family: $fontFamily !important;
+        margin: 0;
+
+        &::before{
+            display: none;
+        }
+    }
+
+    nav{
+        a{
+            line-height: $naviHeightDesktop;
+            color: $secondaryTextColor;
+
+            &.active,
+            &:hover{
+                color: $primaryTextColor;
+            }
+
+            &:hover{
+                &::after{
+                    content: '';
+                    display: block;
+                    background-color: $primaryColor;
+                    height: 3px;
+                }
+            }
+        }
+    }
+}
