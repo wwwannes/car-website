@@ -31,6 +31,7 @@ export default function RangeSlider(props) {
             max={props.max}
             step={props.step}
             defaultValue={[props.min, props.max]}
+            value={value}
             onChange={handleChange}
             onMouseUp={valueSelected}
             disableSwap

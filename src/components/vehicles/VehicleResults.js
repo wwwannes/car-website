@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import axios from 'axios';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -10,9 +9,6 @@ import { getVehicleData } from '../../composables/ApiCalls';
 
 export default function VehicleGrid(props){
     const [searchData, setSearchData] = React.useState({
-        gw: "search_json",
-        mkey: "1-40248-2565679",
-        language: 2,
         max: 41
     });
     const [vehicleData, setVehicleData] = React.useState([]); 
@@ -21,21 +17,10 @@ export default function VehicleGrid(props){
     const refreshResults = useCallback(() => {
         setLoaded(false);
 
-        getVehicleData(searchData).then( res => {
+        getVehicleData(searchData, "search_json").then( res => {
             setVehicleData(res.data.vehicles);
             setLoaded(true);
         });
-
-        /*axios.get(
-            'https://content.modix.net/soap/kfz/',
-            {
-                params: searchData
-            }
-        )
-        .then(res => {
-            setVehicleData(res.data.vehicles);
-            setLoaded(true);
-        })*/
     }, [searchData]); /* Function will only be called if dependency 'searchData' changes */
 
     const updateSearchData = useCallback(() => {

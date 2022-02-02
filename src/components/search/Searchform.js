@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import axios from 'axios';
 import { Container } from '@mui/material';
 
 import FormSlider from '../form/FormSlider';
@@ -37,14 +36,6 @@ export default function Searchform(props){
 
         getVehicleData(searchData).then( res => {
             setAvailableData(res.data);
-
-            /*if(availableData.found === undefined){
-                setPriceRange([Math.floor(res.data.price[0].value / 1000) * 1000, Math.ceil(res.data.price[1].value / 1000) * 1000]);
-                setMileageRange([Math.floor(res.data.mileage[0].value / 1000) * 1000, Math.ceil(res.data.mileage[1].value / 1000) * 1000]);
-            }
-
-            props.parentCallback(searchData);
-            setLoaded(true);*/
         });
     }, [searchData]);
 
@@ -58,9 +49,6 @@ export default function Searchform(props){
                 Math.floor(availableData.mileage[0].value / 1000) * 1000, 
                 availableData.mileage[1] ? Math.ceil(availableData.mileage[1].value / 1000) * 1000 : null
             ]);
-
-            console.log(searchData);
-            
             props.parentCallback(searchData);
             setLoaded(true);
         }
