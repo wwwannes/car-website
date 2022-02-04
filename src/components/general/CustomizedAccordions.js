@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -43,7 +43,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CustomizedAccordions(props) {
-  const [expanded, setExpanded] = React.useState('panel1');
+  const [expanded, setExpanded] = useState('panel1');
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -51,12 +51,19 @@ export default function CustomizedAccordions(props) {
 
   return (
     <div>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>{props.title}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>{props.description}</Typography>
+          {props.description.map((item, key) => {
+            return (
+              <div class="list-container" key={key}>
+                <Typography variant="subtitle1" className="list-item paragraph">{item.label}</Typography>
+                <Typography variant="subtitle1" className="list-item align-right paragraph">{item.text}</Typography>
+              </div>
+            )
+          })}
         </AccordionDetails>
       </Accordion>
     </div>
