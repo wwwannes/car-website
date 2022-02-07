@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
-import PropTypes from 'prop-types';
+
+import { Slide } from 'react-slideshow-image';
 
 import { CardMedia, Container, Grid, LinearProgress, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -9,60 +10,28 @@ import CustomizedAccordions from '../components/general/CustomizedAccordions';
 import FormInput from '../components/form/FormInput';
 import { getVehicleData } from '../composables/ApiCalls';
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-}
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
+import 'react-slideshow-image/dist/styles.css'
 
 export default function VehicleDetails(){
     const params = useParams();
 
     const [searchData] = useState({});
-    const [vehicleData, setVehicleData] = useState([]); 
+    const [vehicleData, setVehicleData] = useState([]);
+    const [dealerData, setDealerData] = useState([]); 
     const [optionsData, setOptionsData] = useState([]);
 
     const [loaded, setLoaded] = useState(false);
-
-    /*const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };*/
     
     useEffect(() => {
         getVehicleData({chiffre: params.id}, "search_json").then( res => {
             setVehicleData(res.data.vehicles[0]);
+            setDealerData(res.data.dealers[0]);
             setOptionsData(Object.entries(res.data.vehicles[0].options));
-            console.log(Object.entries(res.data.vehicles[0].options));
+            console.log(res.data);
             setLoaded(true);
         });
 
     }, [searchData]);
-
-    /*const a11yProps = ((index) => {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    })*/
 
     return(
         <>
@@ -71,7 +40,13 @@ export default function VehicleDetails(){
                     <Container maxWidth={"xl"} disableGutters={true} sx={{position: 'relative'}, {mt: 20}}>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                <CardMedia component="img" src={vehicleData.picServer+"/"+vehicleData.images[0].name}/>
+                                <Slide easing="ease" indicators={true} arrows={false} canSwipe={true}>
+                                    {vehicleData.images.map((item, key) => {
+                                        return(
+                                            <CardMedia component="img" src={vehicleData.picServer+"/"+item.name} key={key}/>
+                                        );
+                                    })}
+                                </Slide>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography variant="h4" component="h1" className="title">{vehicleData.mainData.manufacturer.name} {vehicleData.mainData.model.name}</Typography>
@@ -88,7 +63,6 @@ export default function VehicleDetails(){
                                         <Typography variant="h7">{vehicleData.mainData.seats}</Typography><br/>
                                         <Typography variant="h7" className="paragraph">Seats</Typography>
                                     </Grid>
-
                                     <Grid item xs={4}>
                                        {/*<CalendarTodayRoundedIcon color="primary" fontSize="small"/>*/}
                                         <Typography variant="h7">{vehicleData.dates.registrationDate}</Typography><br/>
@@ -110,6 +84,11 @@ export default function VehicleDetails(){
                                         <Typography variant="h7" className="paragraph">Fuel type</Typography>
                                     </Grid>
                                 </Grid>
+
+                                <Typography variant="h4" component="h3">{dealerData.name1}</Typography>
+                                <Typography variant="h6" component="h3" className="paragraph">{dealerData.street}</Typography>
+                                <Typography variant="h6" component="h3" className="paragraph">{dealerData.zip}{dealerData.town ? `, ${dealerData.town}` : ""}{dealerData.region ? `, ${dealerData.region}` : ""}</Typography>
+                                <Typography variant="h6" component="h3" className="highlight">{dealerData.phone}</Typography>
                             </Grid>
                         </Grid>
                     </Container>
@@ -152,7 +131,7 @@ export default function VehicleDetails(){
                         </Grid>
                     </Container>
                     <Container maxWidth={"xl"} disableGutters={true} sx={{ my: 15 }}>
-                        <Typography variant="h4" component="h2" className="title">Contact us.</Typography>
+                        <Typography variant='h3' align="center" className="title" sx={[{mb: 5}]}>Contact us.</Typography>
                         <form>
                             <Grid container spacing={4}>
                                 <Grid item xs={4}>
