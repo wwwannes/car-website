@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect} from 'react';
 
 import Searchform from '../components/search/Searchform';
-import VehicleGrid from '../components/vehicles/VehicleResults';
+import VehicleGrid from '../components/vehicles/VehicleResults2';
 
 import Container from '@mui/material/Container';
 import { Button, Drawer } from '@mui/material';
@@ -54,7 +54,7 @@ export default function SearchResultPage(props){
                 />
                 </Drawer>
             </Fragment>
-            <Container maxWidth="lg">
+            <Container maxWidth="xl" sx={{ my: 15 }}>
                 <VehicleGrid queryData={queryData}/>
             </Container>
             </>

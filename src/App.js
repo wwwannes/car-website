@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import CustomNavigation from './components/general/CustomNavigation';
 
-import Homepage from './views/Homepage';
+import Homepage from './views/Homepage2';
 import SearchResultPage from './views/SearchResultPage';
 import VehicleDetails from './views/VehicleDetailPage';
 

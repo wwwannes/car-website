@@ -1,0 +1,130 @@
+import { Box, Button, Card, CardMedia, Container, Grid, Typography } from '@mui/material';
+import React from 'react';
+import { useEffect } from 'react';
+
+import FormSelect from '../components/form/FormSelect';
+import { getVehicleData } from '../composables/ApiCalls';
+
+export default function Homepage(){
+    const [loaded, setLoaded] = React.useState(false);
+    const [availableData, setAvailableData] = React.useState({
+        sparse_mode: 1
+    });
+    const [favoritesData, setFavoritesData] = React.useState({});
+    const [searchData, setSearchData] = React.useState({});
+
+    const updateForm = (newValue, searchName) => {
+        setSearchData(prevState => ({
+            ...prevState,
+            [searchName]: newValue
+        }));
+    };
+
+    const refreshForm = () => {
+        setLoaded(false);
+
+        getVehicleData(searchData).then( (res) => {
+            setAvailableData(res.data);
+        });
+    }
+
+    useEffect(() => {
+        getVehicleData({max: 3, sparse_mode: 1}).then( (res) => {
+            setFavoritesData(res.data);
+        });
+    }, []);
+
+    /* componentDidMount & if searchData changes */
+    useEffect(() => {
+        refreshForm();
+    }, [searchData]);
+
+    return(
+        <>
+            <Container maxWidth="xl" sx={{ my: 15 }}>
+                <span>
+                    <h1>Democars</h1> is a classy dealershop with <strong>{availableData.found}</strong> vehicles ready to wow you.
+                </span>
+            </Container>
+
+            {/* FAVORITE CARS */}
+            <Container maxWidth="xl" sx={{ my: 15 }}>
+                <Typography variant='h3' sx={[{fontWeight: 'bold'}, {textTransform: 'uppercase'}, {mb: 5}]}>Stock selection.</Typography>
+                <Grid container spacing={4}>
+                    <Grid item xs={4}>
+                        <CardMedia 
+                            component="img" 
+                            src="https://via.placeholder.com/550x330"
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <CardMedia 
+                            component="img" 
+                            src="https://via.placeholder.com/550x330"
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <CardMedia 
+                            component="img" 
+                            src="https://via.placeholder.com/550x330"
+                        />
+                    </Grid>
+                </Grid>
+            </Container>
+
+            {/* COMPANY PHILOSOPHY */}
+            <Container maxWidth="xl" sx={{ my: 15 }}>
+                <Grid container spacing={4}>
+                    <Grid item xs={6}>
+                        <CardMedia 
+                            component="img"
+                            src="https://via.placeholder.com/850"
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant='h3' sx={[{fontWeight: 'bold'}, {textTransform: 'uppercase'}, {mb: 5}]}>Philosophy.</Typography>
+                        <Typography variant="paragraph">Sed nec tincidunt leo. Phasellus risus est, finibus non viverra id, malesuada pulvinar justo. Nunc dolor ipsum, elementum et nisl id, rhoncus condimentum metus. Maecenas scelerisque erat sed dui tempor, facilisis pellentesque tellus maximus. Etiam rhoncus augue quis enim fermentum, vel tristique risus lacinia. Proin cursus urna a dolor malesuada feugiat. Donec mollis nisi quam, a maximus tortor fermentum at. Duis egestas interdum nibh, id fermentum urna vestibulum vitae. Maecenas tincidunt ullamcorper finibus. Mauris egestas lectus nec sem bibendum mollis.</Typography>
+                    </Grid>
+                </Grid>
+            </Container>
+
+            {/* VEHICLE PROMOTION */}
+            <Container maxWidth={false} disableGutters={true} sx={[{my: 10}, {height: 550}, {position: "relative"}]}>
+                <CardMedia 
+                    component="img" 
+                    src="https://via.placeholder.com/1920x550"
+                    sx={[{position: "absolute"}]}
+                />
+                <Box sx={[{position: "absolute"}, {background: "white"}, {p: 3}, {right: 50}, {bottom: 50}, {width: 450}]}>
+                    <Typography variant='h3' sx={[{fontWeight: 'bold'}, {textTransform: 'uppercase'}, {mb: 5}]}>Promotion.</Typography>
+                    <Typography variant="paragraph">Sed nec tincidunt leo. Phasellus risus est, finibus non viverra id, malesuada pulvinar justo. Nunc dolor ipsum, elementum et nisl id, rhoncus condimentum metus.</Typography>
+                </Box>
+            </Container>
+
+            {/* LOCATIONS */}
+            <Container maxWidth="xl" sx={{ mt: 15, mb: 25 }}>
+                <Typography variant='h3' sx={[{fontWeight: 'bold'}, {textTransform: 'uppercase'}, {mb: 5}]}>Our locations.</Typography>
+                <Grid container spacing={4}>
+                    <Grid item xs={6}>
+                        <CardMedia 
+                            component="img"
+                            src="https://via.placeholder.com/850"
+                        />
+                        <Typography variant='h5' sx={[{fontWeight: 'bold'}, {my: 3}]}>Contact us.</Typography>
+                        <Typography variant="paragraph">Sed nec tincidunt leo. Phasellus risus est, finibus non viverra id, malesuada pulvinar justo. Nunc dolor ipsum, elementum et nisl id, rhoncus condimentum metus. Maecenas scelerisque erat sed dui tempor, facilisis pellentesque tellus maximus. Etiam rhoncus augue quis enim fermentum, vel tristique risus lacinia. Proin cursus urna a dolor malesuada feugiat. Donec mollis nisi quam, a maximus tortor fermentum at. Duis egestas interdum nibh, id fermentum urna vestibulum vitae. Maecenas tincidunt ullamcorper finibus. Mauris egestas lectus nec sem bibendum mollis.</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <CardMedia 
+                            component="img"
+                            src="https://via.placeholder.com/850"
+                        />
+                        <Typography variant='h5' sx={[{fontWeight: 'bold'}, {my: 3}]}>Contact us.</Typography>
+                        <Typography variant="paragraph">Sed nec tincidunt leo. Phasellus risus est, finibus non viverra id, malesuada pulvinar justo. Nunc dolor ipsum, elementum et nisl id, rhoncus condimentum metus. Maecenas scelerisque erat sed dui tempor, facilisis pellentesque tellus maximus. Etiam rhoncus augue quis enim fermentum, vel tristique risus lacinia. Proin cursus urna a dolor malesuada feugiat. Donec mollis nisi quam, a maximus tortor fermentum at. Duis egestas interdum nibh, id fermentum urna vestibulum vitae. Maecenas tincidunt ullamcorper finibus. Mauris egestas lectus nec sem bibendum mollis.</Typography>
+                    </Grid>
+                </Grid>
+            </Container>
+
+            {/* INSTAGRAM */}
+        </>
+    );
+}
