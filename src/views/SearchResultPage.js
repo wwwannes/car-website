@@ -16,7 +16,7 @@ export default function SearchResultPage(props){
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        return;
+            return;
         }
 
         setState({ ...state, [anchor]: open });
@@ -54,7 +54,7 @@ export default function SearchResultPage(props){
                 />
                 </Drawer>
             </Fragment>
-            <Container maxWidth="xl" sx={{ my: 15 }}>
+            <Container maxWidth="xl">
                 <VehicleGrid queryData={queryData}/>
             </Container>
             </>
