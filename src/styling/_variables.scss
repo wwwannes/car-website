@@ -1,13 +1,20 @@
 /* Colors */
-$primaryColor: #d9c5b2;
+$primaryColor: #660200;
 $secondaryColor: #4c5c68;
-$primaryTextColor: #34312d;
+$primaryTextColor: #FAFAFA;
 $secondaryTextColor: #7e7f83;
-$backgroundColor: #f3f3f4;
+$backgroundColor: #0d0d0d;
 
 /* Navigation */
 $naviHeightDesktop: 70px;
 $naviHeightMobile: 35px;
+
+/* SRP */
+/*$ratio: 0.75;
+$grid-item-height: 32vw;
+$grid-item-width: calc($grid-item-height * $ratio);
+$thumb-height: 5vw;
+$thumb-width: calc($thumb-height * $ratio);*/
 
 /* Fonts */
 $fontFamily: -apple-system,BlinkMacSystemFont,Segoe UI;

@@ -37,6 +37,33 @@ body{
     font-weight: bold !important;
 }
 
+.unbutton {
+	background: none;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	font: inherit;
+}
+
+.unbutton:focus {
+	outline: none;
+}
+
+.hide{
+    display: none !important;
+}
+
+.oh {
+	overflow: hidden;
+}
+
+.oh__inner {
+	display: inline-block;
+	transform-origin: 0% 50%;
+	will-change: transform;
+}
+
 .list-container{
     display: grid;
     gap: 15px;

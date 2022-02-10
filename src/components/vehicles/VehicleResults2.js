@@ -27,18 +27,16 @@ export default function VehicleGrid(props){
         getVehicleData(searchData, "search_json").then( res => {
             setVehicleData(res.data.vehicles);
             setLoaded(true);
-
-            /* Initialize vehicle grid */
-            const grd = vehicleGrid.current;
-            new Grid(grd);
             
             /* Divide the results into 3 columns */
             const chunkSize = Math.ceil(res.data.vehicles.length / totalColumns);
             setVehicleColumns(res.data.vehicles.map((e, i) => { 
                 return i % chunkSize === 0 ? res.data.vehicles.slice(i, i + chunkSize) : null; 
             }).filter(e => { return e; }));
-            console.log(res.data.vehicles);
-
+            
+            /* Initialize vehicle grid */
+            const grd = vehicleGrid.current;
+            new Grid(grd);
 
         });
     }, [searchData]); /* Function will only be called if dependency 'searchData' changes */
@@ -59,7 +57,7 @@ export default function VehicleGrid(props){
 
     return(
         <>
-            {vehicleData !== undefined && loaded &&
+            {vehicleData !== undefined && vehicleColumns.length > 0 && loaded &&
                 <div className="columns" data-scroll-container ref={vehicleGrid}>
 
                     <div className="column-wrap column-wrap--height">
