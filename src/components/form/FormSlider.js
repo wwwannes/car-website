@@ -3,22 +3,25 @@
 */
 
 import { Slider, Typography } from '@mui/material';
-import React, {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 export default function RangeSlider(props) {
-  const [value, setValue] = React.useState([0, 0]);
+  const [value, setValue] = useState([0, 0]);
 
   /* Help with setting default values */
   useEffect(() => {
-    setValue([props.min, props.max]);
+    if(value[0] === undefined && value[1] === undefined){
+      setValue([props.min, props.max]);
+    }
   }, [props]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const valueSelected = () => {
-    props.parentCallback(value, props.id);
+  const valueSelected = (event, newValue) => {
+    setValue([newValue[0], newValue[1]]);
+    props.parentCallback(newValue, props.id);
   };
 
   return (
@@ -31,40 +34,11 @@ export default function RangeSlider(props) {
             max={props.max}
             step={props.step}
             defaultValue={[props.min, props.max]}
-            value={value}
             onChange={handleChange}
-            onMouseUp={valueSelected}
+            onChangeCommitted={valueSelected}
             disableSwap
           />
         }
       </>
   );
 }
-
-/*import * as React from 'react';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-
-function valuetext(value) {
-  return `${value}°C`;
-}
-
-export default function RangeSlider() {
-  const [value, setValue] = React.useState([20, 37]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  return (
-    <Box sx={{ width: 300 }}>
-      <Slider
-        getAriaLabel={() => 'Temperature range'}
-        value={value}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-    </Box>
-  );
-}*/
