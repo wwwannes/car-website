@@ -10,7 +10,10 @@ export default function RangeSlider(props) {
 
   /* Help with setting default values */
   useEffect(() => {
-    if(value[0] === undefined && value[1] === undefined){
+    if((value[0] === undefined || 
+      value[0] === 0) && 
+      (value[1] === undefined ||
+      value[1] === 0)){
       setValue([props.min, props.max]);
     }
   }, [props]);
@@ -26,7 +29,13 @@ export default function RangeSlider(props) {
 
   return (
       <>
-        <Typography>{props.title} between {props.prefix} {value[0]} {props.suffix} and {props.prefix} {value[1]} {props.suffix}</Typography>
+        <Typography 
+          sx={{
+            "mt": 3
+          }}
+        >
+          {props.title} between {props.prefix} {value[0]} {props.suffix} and {props.prefix} {value[1]} {props.suffix}
+        </Typography>
         {props.max &&
           <Slider
             getAriaLabel={() => 'range'}
@@ -37,6 +46,9 @@ export default function RangeSlider(props) {
             onChange={handleChange}
             onChangeCommitted={valueSelected}
             disableSwap
+            sx={{
+              "mt": 1
+            }}
           />
         }
       </>

@@ -1,0 +1,14 @@
+.search-panel{
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1200;
+    background: $white;
+    color: $black;
+    height: 100vh;
+    width: 25vw;
+
+    .MuiFormControl-root{
+        position: relative;
+    }
+}

@@ -11,7 +11,7 @@
     position: absolute;
     top: 30px;
     right: 30px;
-    z-index: 9999;
+    z-index: 60;
     color: $primaryTextColor;
 	font-size: 1.7em;
 }
@@ -36,7 +36,7 @@
 }
 
 .menu{
-    z-index: 999;
+    z-index: 99;
     background: $primaryColor;
 
     width: 100vw;

@@ -55,9 +55,6 @@ export class Grid {
      * @param {Element} DOM_el - the .columns element
      */
     constructor(DOM_el) {
-
-        console.log(DOM_el);
-        
         this.DOM.el = DOM_el;
         
         // first and third columns
@@ -185,21 +182,6 @@ export class Grid {
                 });
             }
         });
-
-        // Close the current item's content and reveal back the grid.
-        /*this.DOM.backCtrl.addEventListener('click', () => {
-            if ( this.isGridView || this.isAnimating ) {
-                return false;
-            }
-            this.isAnimating = true;
-            this.isGridView = true;
-
-            // Restart the Locomotive scroll
-            this.initSmoothScroll();
-            this.lscroll.scrollTo(this.lastscroll, {duration: 0, disableLerp: true});
-
-            this.closeContent();
-        });*/
     }
 
     /**

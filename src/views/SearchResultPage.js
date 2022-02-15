@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 
 import Searchform from '../components/search/Searchform';
 import VehicleGrid from '../components/vehicles/VehicleResults2';
@@ -6,11 +6,14 @@ import VehicleGrid from '../components/vehicles/VehicleResults2';
 import Container from '@mui/material/Container';
 import { Button, Drawer } from '@mui/material';
 
+/* https://animate.style */
+import 'animate.css';
+
 export default function SearchResultPage(props){
     
-    const [queryData, setQueryData] = React.useState({});
+    const [queryData, setQueryData] = useState({});
 
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         left: false
     });
 
@@ -22,23 +25,23 @@ export default function SearchResultPage(props){
         setState({ ...state, [anchor]: open });
     };
 
-    useEffect(() => {
-        //console.log(queryData)
-    }, [queryData])
-
     const updateResults = (data) => {
         setQueryData(data)
-        console.log(queryData);
     };
 
     return(
         <>
             <h1>SearchResultPage</h1>
-            <Fragment key="left">
+            <div className="search-panel animate__animated animate__slideInRight">
+                <Searchform 
+                    parentCallback={updateResults}
+                />
+            </div>
+            {/*<Fragment key="left">
                 <Button onClick={toggleDrawer("left", true)}>Modify search</Button>
                 <Drawer
                     sx={{
-                        width: 300,
+                        width: 450,
                         flexShrink: 0,
                         '& .MuiDrawer-paper': {
                         width: 300,
@@ -53,10 +56,10 @@ export default function SearchResultPage(props){
                     parentCallback={updateResults}
                 />
                 </Drawer>
-            </Fragment>
+            </Fragment>*/}
             <Container maxWidth="xl">
                 <VehicleGrid queryData={queryData}/>
             </Container>
-            </>
+        </>
     );
 }

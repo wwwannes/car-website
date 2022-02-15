@@ -24,7 +24,7 @@ export default function CustomNavigation(){
                     ${!showMenu && showMenu !== null ? "animate__animated animate__slideOutUp" : ""}
                 `}
             >
-                <div className="menu__item">
+                <div className="menu__item" onClick={() => setShowMenu(false)}>
                     <NavLink 
                         to="/" 
                         className={`menu__item-inner ${(navData) => navData.isActive ? "active" : "" }`}
@@ -32,7 +32,7 @@ export default function CustomNavigation(){
                         Homepage <sup>01</sup>
                     </NavLink>
                 </div>
-                <div className="menu__item">
+                <div className="menu__item" onClick={() => setShowMenu(false)}>
                     <NavLink 
                         to="vehicles" 
                         className={`menu__item-inner ${(navData) => navData.isActive ? "active" : "" }`}
@@ -40,7 +40,7 @@ export default function CustomNavigation(){
                         Vehicle Stock <sup>02</sup>
                     </NavLink>
                 </div>
-                <div className="menu__item">
+                <div className="menu__item" onClick={() => setShowMenu(false)}>
                     <NavLink 
                         to="philosophy" 
                         className={`menu__item-inner ${(navData) => navData.isActive ? "active" : "" }`}
@@ -48,7 +48,7 @@ export default function CustomNavigation(){
                         Our Philosophy <sup>03</sup>
                     </NavLink>
                 </div>
-                <div className="menu__item">
+                <div className="menu__item" onClick={() => setShowMenu(false)}>
                     <NavLink 
                         to="contact" 
                         className={`menu__item-inner ${(navData) => navData.isActive ? "active" : "" }`}

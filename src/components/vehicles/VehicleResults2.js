@@ -62,203 +62,90 @@ export default function VehicleGrid(props){
 
                     <div className="column-wrap column-wrap--height">
                         <div className="column">
-                            {vehicleColumns[0].map((item, key) => {
-                                const vehiclePrice = new Intl.NumberFormat('be-NL', {
-                                    style: 'currency',
-                                    currency: item.prices.currency
-                                }).format(item.prices.price);
-
-                                const position = 2 + (key * totalColumns);
-                                        
-                                return(
-                                    <figure className="column__item" key={position}>
-                                        <div className="column__item-imgwrap" data-pos={position}>
-                                            <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
-                                        </div>
-                                        <figcaption className="column__item-caption">
-                                            <span>{item.mainData.manufacturer.name} {item.mainData.model.name}</span>
-                                            <span>{vehiclePrice}</span>
-                                        </figcaption>
-                                    </figure>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    <div className="column-wrap">
-                        <div className="column" data-scroll-section>
-                            {vehicleColumns[1].map((item, key) => {
-                                const vehiclePrice = new Intl.NumberFormat('be-NL', {
-                                    style: 'currency',
-                                    currency: item.prices.currency
-                                }).format(item.prices.price);
-
-                                const position = 1 + (key * totalColumns);
-                                        
-                                return(
-                                    <figure className="column__item" key={position}>
-                                        <div className="column__item-imgwrap" data-pos={position}>
-                                            <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
-                                        </div>
-                                        <figcaption className="column__item-caption">
-                                            <span>{item.mainData.manufacturer.name} {item.mainData.model.name}</span>
-                                            <span>{vehiclePrice}</span>
-                                        </figcaption>
-                                    </figure>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    <div className="column-wrap column-wrap--height">
-                        <div className="column">
-                            {vehicleColumns[2].map((item, key) => {
-                                const vehiclePrice = new Intl.NumberFormat('be-NL', {
-                                    style: 'currency',
-                                    currency: item.prices.currency
-                                }).format(item.prices.price);
-
-                                const position = 3 + (key * totalColumns);
-                                        
-                                return(
-                                    <figure className="column__item" key={position}>
-                                        <div className="column__item-imgwrap" data-pos={position}>
-                                            <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
-                                        </div>
-                                        <figcaption className="column__item-caption">
-                                            <span>{item.mainData.manufacturer.name} {item.mainData.model.name}</span>
-                                            <span>{vehiclePrice}</span>
-                                        </figcaption>
-                                    </figure>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    {/* {vehicleColumns.map((column, id) => {
-                        return(
-                            <div className={`column-wrap ${(id + 1) % 2 !== 0 ? "column-wrap--height" : "" }`} key={id}>
-                                <div className="column" data-scroll-section={ (id + 1) % 2 === 0 ? true : false }>
-                                    {column.map((item, key) => {
+                                {vehicleColumns[0] &&
+                                    vehicleColumns[0].map((item, key) => {
                                         const vehiclePrice = new Intl.NumberFormat('be-NL', {
                                             style: 'currency',
                                             currency: item.prices.currency
                                         }).format(item.prices.price);
 
-                                        const position = key + 1;
-                                        
+                                        const position = 2 + (key * totalColumns);
+                                                
                                         return(
                                             <figure className="column__item" key={position}>
                                                 <div className="column__item-imgwrap" data-pos={position}>
-                                                    <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
+                                                    {item.images[0] &&
+                                                        <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
+                                                    }
                                                 </div>
                                                 <figcaption className="column__item-caption">
                                                     <span>{item.mainData.manufacturer.name} {item.mainData.model.name}</span>
                                                     <span>{vehiclePrice}</span>
                                                 </figcaption>
                                             </figure>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })} */}
-
-				    {/*<div className="column-wrap column-wrap--height">
-                        <div className="column" data-scroll-section={false}>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="2">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>Cyber Blue</span>
-                                    <span>2011</span>
-                                </figcaption>
-                            </figure>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="5">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>Gnostic Will</span>
-                                    <span>2012</span>
-                                </figcaption>
-                            </figure>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="8">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>French Kiss</span>
-                                    <span>2013</span>
-                                </figcaption>
-                            </figure>
+                                        );
+                                    })
+                                }
                         </div>
                     </div>
 
                     <div className="column-wrap">
-                        <div className="column" data-scroll-section={true}>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="1">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>Cyber Blue</span>
-                                    <span>2011</span>
-                                </figcaption>
-                            </figure>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="4">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>Gnostic Will</span>
-                                    <span>2012</span>
-                                </figcaption>
-                            </figure>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="7">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>French Kiss</span>
-                                    <span>2013</span>
-                                </figcaption>
-                            </figure>
+                        <div className="column" data-scroll-section>
+                            {vehicleColumns[1] &&
+                                vehicleColumns[1].map((item, key) => {
+                                    const vehiclePrice = new Intl.NumberFormat('be-NL', {
+                                        style: 'currency',
+                                        currency: item.prices.currency
+                                    }).format(item.prices.price);
+
+                                    const position = 1 + (key * totalColumns);
+                                            
+                                    return(
+                                        <figure className="column__item" key={position}>
+                                            <div className="column__item-imgwrap" data-pos={position}>
+                                                {item.images[0] &&
+                                                    <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
+                                                }
+                                            </div>
+                                            <figcaption className="column__item-caption">
+                                                <span>{item.mainData.manufacturer.name} {item.mainData.model.name}</span>
+                                                <span>{vehiclePrice}</span>
+                                            </figcaption>
+                                        </figure>
+                                    );
+                                })
+                            }
                         </div>
                     </div>
 
                     <div className="column-wrap column-wrap--height">
-                        <div className="column" data-scroll-section={false}>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="3">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>Cyber Blue</span>
-                                    <span>2011</span>
-                                </figcaption>
-                            </figure>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="6">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>Gnostic Will</span>
-                                    <span>2012</span>
-                                </figcaption>
-                            </figure>
-                            <figure className="column__item">
-                                <div className="column__item-imgwrap" data-pos="9">
-                                    <div className="column__item-img" style={{backgroundImage: `url(https://via.placeholder.com/850)`}}></div>
-                                </div>
-                                <figcaption className="column__item-caption">
-                                    <span>French Kiss</span>
-                                    <span>2013</span>
-                                </figcaption>
-                            </figure>
+                        <div className="column">
+                            {vehicleColumns[2] &&
+                                vehicleColumns[2].map((item, key) => {
+                                    const vehiclePrice = new Intl.NumberFormat('be-NL', {
+                                        style: 'currency',
+                                        currency: item.prices.currency
+                                    }).format(item.prices.price);
+
+                                    const position = 3 + (key * totalColumns);
+                                            
+                                    return(
+                                        <figure className="column__item" key={position}>
+                                            <div className="column__item-imgwrap" data-pos={position}>
+                                                {item.images[0] &&
+                                                    <div className="column__item-img" style={{backgroundImage: `url(${item.picServer}/${item.images[0].name})`}}></div>
+                                                }
+                                            </div>
+                                            <figcaption className="column__item-caption">
+                                                <span>{item.mainData.manufacturer.name} {item.mainData.model.name}</span>
+                                                <span>{vehiclePrice}</span>
+                                            </figcaption>
+                                        </figure>
+                                    );
+                                })
+                            }
                         </div>
-                    </div>*/}
+                    </div>
                 </div>
             }
             {!loaded &&
