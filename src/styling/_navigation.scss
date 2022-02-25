@@ -1,3 +1,11 @@
+.menu-container{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 60;
+    display: flex;
+}
+
 .menu-link{
 	align-self: start;
 	justify-self: end;
@@ -5,20 +13,18 @@
 	grid-area: menu;
 	overflow: hidden;
     padding: 0 0 5px;
+    margin-left: 20px;
+    position: relative;
 }
 .menu-link,
 .close--menu{
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    z-index: 60;
     color: $primaryTextColor;
 	font-size: 1.7em;
 }
 .menu--open ~ .menu-link{
 	pointer-events: none;
 }
-.menu-link::after {
+.menu-link.underline::after {
 	content: '';
 	position: absolute;
 	bottom: 0;

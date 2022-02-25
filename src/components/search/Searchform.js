@@ -1,12 +1,12 @@
-import {useCallback, useEffect, useState} from 'react';
-import { Container, Slide } from '@mui/material';
+import {useCallback, useContext, useEffect, useState} from 'react';
+import {Container, Slide} from '@mui/material';
+
+import searchPanelContext from '../../composables/Contexts';
 
 import FormSlider from '../form/FormSlider';
 import FormSelect from '../form/FormSelect';
 import FormCheckbox from '../form/FormCheckbox';
-import { getVehicleData } from '../../composables/ApiCalls';
-
-import SearchIcon from '@mui/icons-material/Search';
+import {getVehicleData} from '../../composables/ApiCalls';
 
 export default function Searchform(props){
     const [searchInit, setSearchInit] = useState(false);
@@ -16,7 +16,7 @@ export default function Searchform(props){
     const [priceRange, setPriceRange] = useState([]);
     const [mileageRange, setMileageRange] = useState([]);
 
-    const [openSearchPanel, setOpenSearchPanel] = useState(false);
+    const searchContext = useContext(searchPanelContext);
 
     const updateForm = (newValue, searchName) => {
         /* From/To logic for the sliders */
@@ -70,13 +70,15 @@ export default function Searchform(props){
 
     return(
         <>
-            <SearchIcon fontSize="medium" onClick={() => setOpenSearchPanel(true)}/>
-            <Slide direction="left" in={openSearchPanel}>
+            <Slide direction="left" in={searchContext.isOpen}>
                 <Container 
                     sx={{
                         "py": 5
                     }}
                 >
+
+                    <span onClick={searchContext.toggleSearchPanel}>Close</span><br/>
+
                     {availableData.found &&
                         <span>A total of <b>{availableData.found}</b> vehicles were found</span>
                     }
